@@ -61,10 +61,11 @@ module Api
     # Ajuste caso use "require(:todo)" ou não
     def todo_params
       # Exemplo sem require(:todo):
-      params.require(:todo).permit(:todo_name, :completed, :category_id)
+      params.require(:todo).permit(:todo_name, :completed, :category_id, :difficulty)
       
       # Se preferir com require(:todo):
       # params.require(:todo).permit(:todo_name, :completed, :category_id)
     end
+    
   end
 end
