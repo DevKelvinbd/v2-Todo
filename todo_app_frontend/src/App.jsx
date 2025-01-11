@@ -10,7 +10,6 @@ import {
   getCategories,
   createCategory,
   deleteCategory,
-  deleteCompletedTodos as apiDeleteCompletedTodos, // Adicione esta linha
   getUser
 } from "./api/endpoints";
 
