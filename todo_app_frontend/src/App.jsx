@@ -88,6 +88,7 @@ function App() {
         todos={todos}
         onToggleCompleted={handleToggleCompleted}
         onDeleteTodo={handleDeleteTodo}
+        categories={categories} // Passando as categorias
       />
     </div>
   );
