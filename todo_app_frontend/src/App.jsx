@@ -9,12 +9,15 @@ import {
   deleteTodo,
   getCategories,
   createCategory,
-  deleteCategory, // Adicione esta linha
+  deleteCategory,
+  deleteCompletedTodos as apiDeleteCompletedTodos, // Adicione esta linha
+  getUser
 } from "./api/endpoints";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [user, setUser] = useState({ xp: 0, level: 1 });
 
   // Função para carregar todos do back-end
   const fetchTodos = async () => {
@@ -75,6 +78,24 @@ function App() {
     }
   };
 
+  const deleteCompletedTodos = async () => {
+    try {
+      await apiDeleteCompletedTodos(); // Chama a API para apagar tarefas concluídas
+      await fetchTodos(); // Recarrega a lista de tarefas
+    } catch (error) {
+      console.error("Erro ao apagar tarefas concluídas:", error);
+    }
+  };
+  
+  const fetchUser = async () => {
+    try {
+      const userData = await getUser(1); // Substitua "1" pelo ID real do usuário, se necessário
+      setUser(userData);
+    } catch (error) {
+      console.error("Erro ao carregar dados do usuário:", error);
+    }
+  };
+  
   return (
     <div style={{ margin: "20px" }}>
       <h1>Meu App de Tarefas</h1>
@@ -88,7 +109,9 @@ function App() {
         todos={todos}
         onToggleCompleted={handleToggleCompleted}
         onDeleteTodo={handleDeleteTodo}
-        categories={categories} // Passando as categorias
+        categories={categories}
+        user={user}
+        deleteCompletedTodos={deleteCompletedTodos} // Passa a função como prop
       />
     </div>
   );

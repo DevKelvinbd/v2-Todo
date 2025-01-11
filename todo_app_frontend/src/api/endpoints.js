@@ -36,3 +36,17 @@ export const deleteCategory = async (id) => {
   const response = await axios.delete(`${BASE_URL}/categories/${id}`);
   return response.data;
 };
+
+export const getUser = async (id) => {
+  const response = await axios.get(`${BASE_URL}/users/${id}`);
+  return response.data;
+};
+
+export const updateUser = async (id, updatedData) => {
+  const response = await axios.put(`${BASE_URL}/users/${id}`, updatedData);
+  return response.data;
+};
+
+export const deleteCompletedTodos = async () => {
+  return await axios.delete(`${BASE_URL}/todos/completed`);
+};

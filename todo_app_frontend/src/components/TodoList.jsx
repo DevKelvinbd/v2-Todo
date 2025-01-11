@@ -1,39 +1,64 @@
 import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 
-function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
+function TodoList({
+  todos,
+  onToggleCompleted,
+  onDeleteTodo,
+  categories,
+  user,
+  deleteCompletedTodos,
+  fetchTodos,
+}) {
   // Valores de XP por dificuldade
   const xpValues = { easy: 25, medium: 45, hard: 70 };
 
   // Estados
   const [selectedCategory, setSelectedCategory] = useState(null); // Filtro por categoria
-  const [level, setLevel] = useState(1); // Nível do usuário
+  const [totalXP, setTotalXP] = useState(user?.xp || 0); // XP total acumulado do usuário
+  const [level, setLevel] = useState(user?.level || 1); // Nível do usuário
   const [showConfetti, setShowConfetti] = useState(false); // Controle dos confetes
 
   // Calcular meta diária com base no nível
   const baseGoal = 500; // Meta base
   const dailyGoal = Math.ceil(baseGoal * (1 + (level - 1) * 0.02)); // Aumenta 2% por nível
 
-  // Calcular XP acumulado das tarefas concluídas
-  const totalXP = todos
-    .filter((todo) => todo.completed)
-    .reduce((acc, todo) => acc + (xpValues[todo.difficulty] || 0), 0);
-
   // Calcular porcentagem de progresso
   const progressPercentage = Math.min((totalXP / dailyGoal) * 100, 100);
 
-  // Subir de nível e mostrar confetes
+  // Subir de nível e perguntar se deseja apagar tarefas concluídas
   useEffect(() => {
-    if (progressPercentage >= 100) {
+    const handleLevelUp = async () => {
       setShowConfetti(true);
 
-      // Subir de nível após atingir a meta
-      setTimeout(() => {
-        setLevel((prevLevel) => prevLevel + 1);
-        setShowConfetti(false); // Esconde os confetes após 10 segundos
-      }, 10000);
+      // Subir de nível
+      const remainingXP = totalXP - dailyGoal;
+      const newLevel = level + 1;
+
+      // Atualiza o estado local
+      setLevel(newLevel);
+      setTotalXP(remainingXP);
+
+      // Confirmação para apagar tarefas concluídas
+      const shouldDelete = window.confirm(
+        "Parabéns! Você subiu de nível! Deseja apagar as tarefas concluídas para continuar?"
+      );
+
+      if (shouldDelete) {
+        try {
+          await deleteCompletedTodos(); // Usa a função passada como prop
+        } catch (error) {
+          console.error("Erro ao apagar tarefas concluídas:", error);
+        }
+      }
+
+      setTimeout(() => setShowConfetti(false), 4000); // Esconde os confetes após 4 segundos
+    };
+
+    if (totalXP >= dailyGoal) {
+      handleLevelUp();
     }
-  }, [progressPercentage]);
+  }, [totalXP, dailyGoal, level, deleteCompletedTodos, fetchTodos]);
 
   // Filtrar tarefas com base na categoria selecionada
   const filteredTodos = selectedCategory
@@ -43,6 +68,15 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
   // Separar tarefas pendentes e concluídas
   const pendingTodos = filteredTodos.filter((todo) => !todo.completed);
   const completedTodos = filteredTodos.filter((todo) => todo.completed);
+
+  // Atualizar XP ao completar tarefa
+  const handleToggleCompleted = (id, newCompleted, difficulty) => {
+    onToggleCompleted(id, newCompleted, difficulty);
+    if (newCompleted) {
+      const xpGained = xpValues[difficulty] || 0;
+      setTotalXP((prevXP) => prevXP + xpGained);
+    }
+  };
 
   return (
     <div>
@@ -71,7 +105,8 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
             style={{
               marginRight: "10px",
               padding: "5px 10px",
-              backgroundColor: selectedCategory === category.id ? "#2196F3" : "#f1f1f1",
+              backgroundColor:
+                selectedCategory === category.id ? "#2196F3" : "#f1f1f1",
               color: selectedCategory === category.id ? "white" : "black",
               border: "1px solid #ccc",
               cursor: "pointer",
@@ -82,10 +117,12 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
         ))}
       </div>
 
-      {/* Exibir nível e XP total acumulado */}
+      {/* Exibir barra de progresso */}
       <div style={{ marginBottom: "20px", fontWeight: "bold" }}>
-        Nível: {level} <br />
-        Total XP: {totalXP} / {dailyGoal}
+        <p>Nível: {level}</p>
+        <p>
+          Total XP: {totalXP} / {dailyGoal}
+        </p>
         <div
           style={{
             width: "100%",
@@ -93,14 +130,14 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
             backgroundColor: "#ddd",
             borderRadius: "5px",
             overflow: "hidden",
-            marginTop: "10px",
           }}
         >
           <div
             style={{
               width: `${progressPercentage}%`,
               height: "100%",
-              backgroundColor: progressPercentage >= 100 ? "#4CAF50" : "#2196F3",
+              backgroundColor:
+                progressPercentage >= 100 ? "#4CAF50" : "#2196F3",
               transition: "width 0.5s",
             }}
           ></div>
@@ -122,14 +159,18 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
                 alignItems: "center",
               }}
             >
-              {/* Checkbox para marcar como concluído */}
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => onToggleCompleted(todo.id, !todo.completed)}
+                onChange={() =>
+                  handleToggleCompleted(
+                    todo.id,
+                    !todo.completed,
+                    todo.difficulty
+                  )
+                }
                 style={{ marginRight: "10px" }}
               />
-              {/* Nome da tarefa */}
               <span
                 style={{
                   textDecoration: todo.completed ? "line-through" : "none",
@@ -141,11 +182,9 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
                   <em style={{ color: "#888" }}>({todo.category.name})</em>
                 )}
               </span>
-              {/* Nível de dificuldade e XP */}
               <span style={{ marginLeft: "10px", color: "#555" }}>
                 {todo.difficulty && `XP: ${xpValues[todo.difficulty] || 0}`}
               </span>
-              {/* Botão de excluir */}
               <button
                 onClick={() => onDeleteTodo(todo.id)}
                 style={{
@@ -180,14 +219,18 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
                 alignItems: "center",
               }}
             >
-              {/* Checkbox para marcar como pendente */}
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => onToggleCompleted(todo.id, !todo.completed)}
+                onChange={() =>
+                  handleToggleCompleted(
+                    todo.id,
+                    !todo.completed,
+                    todo.difficulty
+                  )
+                }
                 style={{ marginRight: "10px" }}
               />
-              {/* Nome da tarefa */}
               <span
                 style={{
                   textDecoration: todo.completed ? "line-through" : "none",
@@ -199,11 +242,9 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
                   <em style={{ color: "#888" }}>({todo.category.name})</em>
                 )}
               </span>
-              {/* Nível de dificuldade e XP */}
               <span style={{ marginLeft: "10px", color: "#555" }}>
                 {todo.difficulty && `XP: ${xpValues[todo.difficulty] || 0}`}
               </span>
-              {/* Botão de excluir */}
               <button
                 onClick={() => onDeleteTodo(todo.id)}
                 style={{
@@ -223,7 +264,6 @@ function TodoList({ todos, onToggleCompleted, onDeleteTodo, categories }) {
         </ul>
       )}
 
-      {/* Confetes ao atingir a meta */}
       {showConfetti && <Confetti />}
     </div>
   );

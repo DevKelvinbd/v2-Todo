@@ -10,15 +10,11 @@ module Api
 
     # GET /api/todos/1
     def show
-      # @todo vem do set_todo
       render json: @todo.to_json(include: :category)
     end
 
     # POST /api/todos
     def create
-      # se estiver usando params.require(:todo):
-      # @todo = Todo.new(todo_params)
-      # se estiver usando params diretos:
       @todo = Todo.new(todo_params)
 
       if @todo.save
@@ -52,20 +48,20 @@ module Api
       head :no_content
     end
 
+    # DELETE /api/todos/completed
+    def completed
+      Todo.where(completed: true).destroy_all
+      head :no_content
+    end
+
     private
 
     def set_todo
       @todo = Todo.find(params[:id])
     end
 
-    # Ajuste caso use "require(:todo)" ou não
     def todo_params
-      # Exemplo sem require(:todo):
       params.require(:todo).permit(:todo_name, :completed, :category_id, :difficulty)
-      
-      # Se preferir com require(:todo):
-      # params.require(:todo).permit(:todo_name, :completed, :category_id)
     end
-    
   end
 end
