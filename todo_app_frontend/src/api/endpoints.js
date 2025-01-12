@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://127.0.0.1:3000/api";
 
+// Tarefas (Todos)
 export const getTodos = async () => {
   const response = await axios.get(`${BASE_URL}/todos`);
   return response.data;
@@ -17,11 +18,18 @@ export const updateTodo = async (id, updatedData) => {
   return response.data;
 };
 
+
 export const deleteTodo = async (id) => {
   const response = await axios.delete(`${BASE_URL}/todos/${id}`);
   return response.data;
 };
 
+export const deleteCompletedTodos = async () => {
+  // Remove todas as tarefas concluídas
+  await axios.delete(`${BASE_URL}/todos/completed`);
+};
+
+// Categorias
 export const getCategories = async () => {
   const response = await axios.get(`${BASE_URL}/categories`);
   return response.data;
@@ -29,7 +37,7 @@ export const getCategories = async () => {
 
 export const createCategory = async (categoryData) => {
   const response = await axios.post(`${BASE_URL}/categories`, categoryData);
-  return response.data; // Deve retornar a categoria criada
+  return response.data; // Retorna a nova categoria criada
 };
 
 export const deleteCategory = async (id) => {
@@ -37,6 +45,7 @@ export const deleteCategory = async (id) => {
   return response.data;
 };
 
+// Usuário
 export const getUser = async (id) => {
   const response = await axios.get(`${BASE_URL}/users/${id}`);
   return response.data;
@@ -45,8 +54,4 @@ export const getUser = async (id) => {
 export const updateUser = async (id, updatedData) => {
   const response = await axios.put(`${BASE_URL}/users/${id}`, updatedData);
   return response.data;
-};
-
-export const deleteCompletedTodos = async () => {
-  return await axios.delete(`${BASE_URL}/todos/completed`);
 };

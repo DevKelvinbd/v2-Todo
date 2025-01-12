@@ -1,0 +1,121 @@
+.divAddCategory {
+    padding: 15px 15px 5px 15px;
+    width: 420px;
+}
+
+.formDiv {
+    width: fit-content;
+    background-color: #12143c;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.styleInputCategory {
+    padding: 0.8rem;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    background-color: #12143c;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.styleInputCategory::placeholder {
+    color: #7DBDEB;
+    padding-left: 0.6rem;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.styleInputCategory:focus::placeholder {
+    color: transparent;
+}
+
+.styleInputCategory:focus{
+    border-color: none;
+}
+
+.buttonAddCategory {
+    border-radius: 50%;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 7px 10px;
+    background-color: #7DBDEB;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    border: none;
+    transition: transform 0.3s ease; /* Transição suave */
+    margin: 0;
+}
+
+.buttonAddCategory:hover {
+    transform: scale(1.1); /* Aumenta 10% no hover */
+}
+
+.IconAddCategory {
+    color: #0f0d3a;
+}
+
+.buttonAddCategory:hover {
+    border-color: #646cff;
+  }
+  .buttonAddCategory:focus,
+  .buttonAddCategory:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+
+.buttonTrash {
+    margin: 0 10px;
+    padding: 7px 10px;
+    border-radius: 50%;
+    background-color: none;
+    background: #7DBDEB;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Transição suave */
+}
+
+.buttonTrash:hover {
+    transform: scale(1.1); /* Aumenta 10% no hover */
+}
+
+.iconTrash {
+    color: #0f0d3a;
+}
+
+
+.trashUl {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #7DBDEB;
+    border-radius: 5px;
+    list-style-type: none;
+    background-color: #0f0d3a;
+}
+
+.trashLi {
+    text-align: center;
+    padding: 5px;
+}
+
+.liCategoryTrash {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.buttonXTrash {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.buttonXTrash:hover {
+    transform: scale(1.2); /* Aumenta 10% no hover */
+}

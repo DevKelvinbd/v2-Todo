@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import styles from "./AddTodo.module.css";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+
 
 function AddTodo({ categories, onTodoCreated }) {
   const [todoName, setTodoName] = useState("");
@@ -6,7 +9,7 @@ function AddTodo({ categories, onTodoCreated }) {
   const [difficulty, setDifficulty] = useState("easy"); // Nível de dificuldade padrão
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
     if (!todoName.trim()) {
       alert("O nome da tarefa não pode estar vazio!");
@@ -33,31 +36,24 @@ function AddTodo({ categories, onTodoCreated }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+    <form className={styles.formAddTodo} onSubmit={handleSubmit}>
       {/* Nome da tarefa */}
       <input
+        className={styles.todoName}
         type="text"
         placeholder="Digite o nome da tarefa"
         value={todoName}
         onChange={(e) => setTodoName(e.target.value)}
-        style={{
-          padding: "10px",
-          fontSize: "16px",
-          marginRight: "10px",
-        }}
       />
 
       {/* Dropdown de categorias */}
       <select
+        className={styles.dropCategory}
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
-        style={{
-          padding: "10px",
-          fontSize: "16px",
-          marginRight: "10px",
-        }}
       >
-        <option value="">Selecione uma categoria</option>
+        <option value="">Ctg</option>
+
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
@@ -67,13 +63,9 @@ function AddTodo({ categories, onTodoCreated }) {
 
       {/* Dropdown de dificuldade */}
       <select
+        className={styles.dropDificult}
         value={difficulty}
         onChange={(e) => setDifficulty(e.target.value)}
-        style={{
-          padding: "10px",
-          fontSize: "16px",
-          marginRight: "10px",
-        }}
       >
         <option value="easy">Fácil</option>
         <option value="medium">Média</option>
@@ -81,19 +73,10 @@ function AddTodo({ categories, onTodoCreated }) {
       </select>
 
       {/* Botão de adicionar */}
-      <button
-        type="submit"
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
+      <button className={styles.addButton} type="submit">
         Adicionar
       </button>
+      
     </form>
   );
 }

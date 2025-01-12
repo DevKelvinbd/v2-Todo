@@ -1,0 +1,71 @@
+.formAddTodo {
+    padding: 5px 15px 15px 15px;
+}
+
+.todoName {
+    padding: 0.8rem;
+    font-size: 16px;
+    color: white;
+    border: none; 
+    border-radius: 8px;
+    background-color: #12143c;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-right: 2px;
+}
+
+.todoName::placeholder {
+    color: #7DBDEB;
+    padding-left: 0.6rem;
+    padding-right: 0;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.todoName:focus::placeholder {
+    color: transparent;
+}
+
+.todoName:focus{
+    border-color: none;
+}
+
+/*  */
+
+.dropCategory {
+    border-radius: 8px;
+    background-color: #12143c;
+    color: #7DBDEB;
+    padding: 10px;
+    font-size: 18px;
+    margin-right: 2px;
+    border: none;
+} 
+
+.dropDificult {
+    border-radius: 8px;
+    background-color: #12143c;
+    color: #7DBDEB;
+    padding: 10px;
+    font-size: 18px;
+    margin-right: 2px;
+    border: none;
+}
+
+.addButton {
+    border-radius: 8px;
+    background-color: #00731f;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.addButton:hover {
+    background-color: #00f742;
+    color: #12143c;
+    padding: 10px;
+
+}
