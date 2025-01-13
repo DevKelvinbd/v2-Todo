@@ -99,7 +99,7 @@ function App() {
     try {
       // Atualiza a tarefa no backend
       await updateTodo(updatedTodo.id, updatedTodo);
-  
+
       // Atualiza o estado local
       setTodos((prevTodos) =>
         prevTodos.map((todo) =>
@@ -184,10 +184,10 @@ function App() {
         onEditTodo={handleEditTodo} // Mantém a função geral de edição
         onDeleteTodo={handleDeleteTodo} // Função para excluir
         onEditDescription={handleEditDescription} // Adiciona a prop de edição de descrição
-        deleteCompletedTodos={deleteCompletedTodos} // Adiciona esta prop
+        deleteCompletedTodos={deleteCompletedTodos} // Deleta os TOdos ao passar de nível
         categories={categories}
         user={user}
-        setTodos={setTodos} // Adicione essa linha
+        setTodos={setTodos}
       />
 
       {viewedTodo && (

@@ -3,7 +3,6 @@ import Confetti from "react-confetti";
 import styles from "./TodoList.module.css";
 import { FaTrashRestore } from "react-icons/fa";
 
-
 function TodoList({
   todos,
   onToggleCompleted,
@@ -83,17 +82,17 @@ function TodoList({
       // Encontre a tarefa correspondente
       const updatedTodo = todos.find((todo) => todo.id === id);
       if (!updatedTodo) return;
-  
+
       // Atualize a tarefa no backend
       await onEditTodo({ ...updatedTodo, completed: newCompleted });
-  
+
       // Atualize o estado local para refletir a mudança
       setTodos((prevTodos) =>
         prevTodos.map((todo) =>
           todo.id === id ? { ...todo, completed: newCompleted } : todo
         )
       );
-  
+
       // Atualize o XP do usuário
       if (newCompleted) {
         const xpGained = xpValues[difficulty] || 0;
@@ -106,7 +105,6 @@ function TodoList({
       console.error("Erro ao atualizar estado de concluído:", error);
     }
   };
-  
 
   // Visualizar detalhes da tarefa
   const handleViewTodo = (todo) => {
@@ -126,7 +124,7 @@ function TodoList({
       onEditTodo(updatedTodo); // Atualiza a tarefa no banco de dados ou na lista de tarefas
       setViewedTodo(updatedTodo); // Atualiza localmente
       setShowConfirmation(true); // Exibe a mensagem de confirmação
-  
+
       // Oculta a mensagem após 3 segundos
       setTimeout(() => {
         setShowConfirmation(false);
@@ -140,7 +138,9 @@ function TodoList({
 
       {/* Filtro por categorias */}
       <div className={styles.divFilterCategory}>
-        <p className={styles.subtitleFiltrarCategoria}>Filtrar por Categoria:</p>
+        <p className={styles.subtitleFiltrarCategoria}>
+          Filtrar por Categoria:
+        </p>
         <button
           className={styles.filterAll}
           onClick={() => setSelectedCategory(null)} // Mostrar todas as categorias
@@ -308,7 +308,7 @@ function TodoList({
               className={styles.saveDescriptionButton}
               onClick={handleSaveDescription}
             >
-              Salvar Descrição
+              Salvar
             </button>
             <button
               className={styles.closeDetailsButton}
