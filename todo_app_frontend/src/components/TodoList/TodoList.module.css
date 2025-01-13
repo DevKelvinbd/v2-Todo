@@ -1,0 +1,323 @@
+.containerTodo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 15px;
+}
+
+.titleListTodo {
+  font-size: 2.8rem;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #7DBDEB;
+}
+
+
+.divFilterCategory {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.subtitleFiltrarCategoria {
+  font-size: 1.3rem;
+  color: #7DBDEB;
+  margin: 0;
+  font-weight: 500;
+}
+  
+  .filterAll,
+  .filterNewCategory {
+    padding: 8px 12px;
+    border: 1px solid #7DBDEB;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .filterAll:hover,
+  .filterNewCategory:hover {
+    background-color: #e3f2fd;
+  }
+  
+  .selected {
+    background-color: #12143c;
+    color: white;
+  }
+  
+  .not-selected {
+    background-color: #12143c;
+    color: black;
+  }
+  
+
+  .textNivel {
+    font-size: 1.2rem;
+    color: #7DBDEB;
+    margin: 8px 0;
+  }
+
+  /* Barra de progresso */
+  .divSectionBar {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .divContainerBar {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progressBar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+  }
+
+  .textTarefas {
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: 10px;
+    color: #7DBDEB;
+  }
+  
+  /* Listagem de tarefas */
+  .liPendingTodos,
+  .liCompletedTodos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 15px 12px;
+    border: 1px solid #020136;
+    border-radius: 4px;
+    background-color: #292850;  
+    transition: background-color 0.3s ease;
+  }
+  
+  .liPendingTodos:hover,
+  .liCompletedTodos:hover {
+    background-color: #12143c;
+  }
+
+  .stylesUl{
+    margin: 10px 0;
+    padding: 0;
+  }
+  
+  .inputCheckbox {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    appearance: none; 
+    border: 2px solid #7DBDEB;
+    background-color: white; /* Define a cor de fundo */
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .taskWCategory {
+    flex: 1;
+    cursor: pointer;
+    color: #292850;
+  }
+
+  .textTodo {
+    color: white;
+    transition: 0.3s ease;
+  }
+
+  .textTodo:hover {
+    color: #7DBDEB;
+    ;
+  }
+  
+  .taskWCategory:hover {
+    text-decoration: underline;
+  }
+  
+  .emTaskCategory,
+  .emCompletedTodo {
+    transition: 0.3s ease;
+  }
+
+  .emTaskCategory:hover, 
+  .emCompletedTodo:hover {
+    color: #7DBDEB;
+
+  }
+
+  .infoDificult,
+  .spanDifXp {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #7DBDEB;
+  }
+  
+  .buttonDeleteTodo,
+  .deleteTodo {
+    padding: 8px 10px 5px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #f44336;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttonDeleteTodo:hover,
+  .deleteTodo:hover {
+    background-color: #b01b1b;
+  }
+  
+  /* Estilos para o modal */
+  .detailsOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .detailsCard {
+    background-color: #7DBDEB;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .detailsCard h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #020136;
+
+  }
+  
+  .detailsCard p {
+    margin: 7px 0;
+    color: #020136;
+  }
+  
+  .descriptionInput {
+    width: 100%;
+    height: 80px;
+    margin: 0px 0;
+    font-weight: 400;
+    background-color: transparent;
+    border: 1px solid #020136;
+    color: #020136;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none;
+  }
+
+  .descriptionInput:focus {
+    color: #020136; /* Altere para a cor desejada do texto */
+    border-color: #0056b3; /* Altere para a cor desejada da borda ativa */
+    outline: none; /* Remove o outline padrão do navegador */
+  }
+  
+  .saveDescriptionButton,
+  .closeDetailsButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .saveDescriptionButton {
+    background-color: #020136;
+    color: #7DBDEB;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  
+  .saveDescriptionButton:hover {
+    background-color: #009d08;
+    color: white;
+  }
+  
+  .closeDetailsButton {
+    background-color: #680700;
+    color: white;
+  }
+  
+  .closeDetailsButton:hover {
+    background-color: #d32f2f;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+
+.confirmationMessage {
+    margin-top: 10px;
+    color: #4CAF50;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}  
+
+/* concluídos */
+
+.completeTodo {
+  color: #9e9e9e;
+}
+
+.inputCheckboxCheck {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  appearance: none; /* Remove o estilo padrão do navegador */
+  border: 2px solid #7DBDEB; /* Borda inicial */
+  background-color: white; /* Cor de fundo inicial */
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex; /* Para centralizar o conteúdo */
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, border-color 0.3s; /* Transições suaves */
+}
+
+.inputCheckboxCheck:checked {
+  background-color: #7DBDEB; /* Cor de fundo quando clicada */
+  border-color: #0056A1; /* Cor da borda quando clicada */
+}
+
+.inputCheckboxCheck:checked::after {
+  content: '✔'; /* Ícone de marcação */
+  font-size: 14px; /* Tamanho do ícone */
+  color: white; /* Cor do ícone */
+}
+
+.spanDifXp2 {
+  margin-left: 10px;
+  font-size: 12px;
+  color: rgb(0, 242, 0);
+}

@@ -1,0 +1,22 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.containerApp {
+  display: flex;
+  background-color: #000628;
+  width: max-content;
+  flex-direction: column;
+  /* padding: 30px; */
+  overflow-x: none;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.titleAplication {
+  color: #7DBDEB;
+  padding: 15px 15px 15px 15px;
+  margin: 0;
+}
