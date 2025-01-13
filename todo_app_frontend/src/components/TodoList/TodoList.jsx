@@ -135,8 +135,6 @@ function TodoList({
   return (
     <div className={styles.containerTodo}>
       <h2 className={styles.titleListTodo}>Lista de Tarefas</h2>
-
-      {/* Filtro por categorias */}
       <div className={styles.divFilterCategory}>
         <p className={styles.subtitleFiltrarCategoria}>
           Filtrar por Categoria:
