@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./AddTodo.module.css";
-import { BiSolidCategoryAlt } from "react-icons/bi";
 
 
 function AddTodo({ categories, onTodoCreated }) {
