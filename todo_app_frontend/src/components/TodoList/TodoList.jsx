@@ -1,62 +1,63 @@
 import React, { useState, useEffect } from "react";
-import Confetti from "react-confetti"; // Biblioteca para efeitos de confete
-import styles from "./TodoList.module.css"; // Estilos específicos para o componente
-import { FaTrashRestore } from "react-icons/fa"; // Ícone de restauração de tarefa concluída
+import Confetti from "react-confetti";
+import styles from "./TodoList.module.css";
+import { FaTrashRestore } from "react-icons/fa";
 import { CustomConfirmModal } from "../CustomConfirmModal/CustomConfirmModal";
 
-// Modal de Confirmação Customizada
-
-
-// Componente principal TodoList
 function TodoList({
-  todos, // Lista de tarefas
-  onEditTodo, // Função para editar uma tarefa
-  deleteCompletedTodos, // Função para excluir todas as tarefas concluídas
-  setTodos, // Função para atualizar a lista de tarefas
-  user, // Informações do usuário (XP, nível)
-  categories, // Lista de categorias
+  todos,
+  onEditTodo,
+  onDeleteTodo,
+  deleteCompletedTodos,
+  setTodos,
+  user,
+  categories,
 }) {
   const xpValues = { easy: 25, medium: 45, hard: 70 }; // XP por dificuldade
-  const baseGoal = 50; // Meta base de XP
+  const baseGoal = 200; // Meta base de XP
 
-  // Estados do componente
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [viewedTodo, setViewedTodo] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [totalXP, setTotalXP] = useState(user?.xp || 0);
   const [level, setLevel] = useState(user?.level || 1);
-  const [showModal, setShowModal] = useState(false); // Controle do modal
+  const [showModal, setShowModal] = useState(false);
+  const [editedDescription, setEditedDescription] = useState("");
+  const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
 
-  // Meta diária baseada no nível
   const dailyGoal = Math.ceil(baseGoal * (1 + (level - 1) * 0.02));
   const progressPercentage = Math.min((totalXP / dailyGoal) * 100, 100);
 
-  // Verifica se o usuário atingiu a meta diária
   useEffect(() => {
     if (totalXP >= dailyGoal) {
-      setShowConfetti(true); // Exibe confetes
-      setShowModal(true); // Exibe o modal
+      setShowModal(true);
     }
   }, [totalXP, dailyGoal]);
 
-  // Confirmação: Incrementa nível e exclui tarefas concluídas
-  const handleConfirmDelete = async () => {
+  const handleConfirmLevelUp = async () => {
     setShowModal(false);
     setLevel((prevLevel) => prevLevel + 1);
     setTotalXP((prevXP) => prevXP - dailyGoal);
-    await deleteCompletedTodos(); // Exclui tarefas concluídas
-    setTimeout(() => setShowConfetti(false), 2000);
+  
+    if (deleteCompletedTodos) {
+      await deleteCompletedTodos();
+    }
+  
+    // Exibir confetes
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 4000);
   };
 
-  // Cancelamento: Incrementa nível e mantém as tarefas concluídas
-  const handleCancelDelete = () => {
+  const handleCancelLevelUp = () => {
     setShowModal(false);
     setLevel((prevLevel) => prevLevel + 1);
     setTotalXP((prevXP) => prevXP - dailyGoal);
-    setTimeout(() => setShowConfetti(false), 2000);
+  
+    // Exibir confetes mesmo no cancelamento
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 4000);
   };
 
-  // Atualiza o estado de conclusão de uma tarefa
   const handleToggleCompleted = async (id, newCompleted, difficulty) => {
     try {
       const updatedTodo = todos.find((todo) => todo.id === id);
@@ -76,7 +77,6 @@ function TodoList({
     }
   };
 
-  // Filtra tarefas por categoria
   const filteredTodos = selectedCategory
     ? todos.filter((todo) => todo.category?.id === selectedCategory)
     : todos;
@@ -84,9 +84,38 @@ function TodoList({
   const pendingTodos = filteredTodos.filter((todo) => !todo.completed);
   const completedTodos = filteredTodos.filter((todo) => todo.completed);
 
-  // Renderiza listas de tarefas
+  const handleViewDetails = (todo) => {
+    setViewedTodo(todo);
+    setEditedDescription(todo.description || "");
+  };
+
+  const handleCloseDetails = () => {
+    setViewedTodo(null);
+  };
+
+  const handleSaveDescription = async () => {
+    if (!viewedTodo) return;
+
+    const updatedTodo = { ...viewedTodo, description: editedDescription };
+    try {
+      await onEditTodo(updatedTodo);
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === updatedTodo.id ? updatedTodo : todo
+        )
+      );
+      setViewedTodo(updatedTodo);
+
+      // Exibe a mensagem de confirmação
+      setShowConfirmationMessage(true);
+      setTimeout(() => setShowConfirmationMessage(false), 3000); // Oculta após 3 segundos
+    } catch (error) {
+      console.error("Erro ao salvar descrição:", error);
+    }
+  };
+
   const renderTodoList = (todos, title, isCompleted) => (
-    <>
+    <div className={styles.divRenderTodo}>
       <h3 className={styles.textTarefas}>{title}</h3>
       {todos.length === 0 ? (
         <p>Sem tarefas {isCompleted ? "concluídas" : "pendentes"}!</p>
@@ -110,12 +139,16 @@ function TodoList({
                   )
                 }
                 className={
-                  isCompleted ? styles.inputCheckboxCheck : styles.inputCheckbox
+                  isCompleted
+                    ? styles.inputCheckboxCheck
+                    : styles.inputCheckbox
                 }
               />
               <span
-                className={isCompleted ? styles.completeTodo : styles.textTodo}
-                onClick={() => setViewedTodo(todo)}
+                className={
+                  isCompleted ? styles.completeTodo : styles.textTodo
+                }
+                onClick={() => handleViewDetails(todo)}
                 style={{ cursor: "pointer" }}
               >
                 {todo.todo_name}
@@ -131,7 +164,7 @@ function TodoList({
                 </span>
               )}
               <button
-                onClick={() => onEditTodo(todo.id)}
+                onClick={() => onDeleteTodo(todo.id)}
                 className={styles.deleteTodo}
               >
                 <FaTrashRestore />
@@ -140,7 +173,7 @@ function TodoList({
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 
   return (
@@ -176,7 +209,6 @@ function TodoList({
         ))}
       </div>
 
-      {/* Exibir barra de progresso */}
       <div className={styles.divSectionBar}>
         <p className={styles.textNivel}>Nível: {level}</p>
         <p className={styles.textNivel}>
@@ -195,21 +227,58 @@ function TodoList({
         </div>
       </div>
 
-      {/* Listas de Tarefas */}
       {renderTodoList(pendingTodos, "Tarefas para fazer", false)}
       {renderTodoList(completedTodos, "Tarefas concluídas", true)}
 
-      {/* Modal de Confirmação */}
       {showModal && (
         <CustomConfirmModal
           message="Parabéns! Você subiu de nível! Deseja apagar as tarefas concluídas?"
-          onConfirm={handleConfirmDelete}
-          onCancel={handleCancelDelete}
+          onConfirm={handleConfirmLevelUp}
+          onCancel={handleCancelLevelUp}
         />
       )}
 
-      {/* Confetes */}
       {showConfetti && <Confetti />}
+
+      {viewedTodo && (
+        <div className={styles.detailsOverlay}>
+          <div className={styles.detailsCard}>
+            <h3>Detalhes da Tarefa</h3>
+            <p>
+              <strong>Nome:</strong> {viewedTodo.todo_name}
+            </p>
+            <p>
+              <strong>Descrição:</strong>
+            </p>
+            <textarea
+              className={styles.descriptionInput}
+              value={editedDescription}
+              onChange={(e) => setEditedDescription(e.target.value)}
+            />
+            <p>
+              <strong>Dificuldade:</strong>{" "}
+              {viewedTodo.difficulty || "Não especificada"}
+            </p>
+            <button
+              className={styles.saveDescriptionButton}
+              onClick={handleSaveDescription}
+            >
+              Salvar
+            </button>
+            <button
+              className={styles.closeDetailsButton}
+              onClick={handleCloseDetails}
+            >
+              Fechar
+            </button>
+            {showConfirmationMessage && (
+              <p className={styles.confirmationMessage}>
+                Descrição salva com sucesso!
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

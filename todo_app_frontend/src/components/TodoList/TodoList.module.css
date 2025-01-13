@@ -15,10 +15,17 @@
 
 
 .divFilterCategory {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap; /* Impede que as categorias quebrem linha */
+  gap: 10px; /* Espaçamento entre os itens */
+  overflow-x: auto; /* Adiciona rolagem horizontal quando necessário */
+  /* max-width: 100%; Limita o tamanho ao contêiner pai */
+  scrollbar-width: thin; /* Define barra de rolagem fina (para navegadores compatíveis) */
+  scrollbar-color: #7DBDEB #f1f1f1; /* Define cores personalizadas */
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0; /* Espaçamento interno */
 }
 
 .subtitleFiltrarCategoria {
@@ -27,15 +34,24 @@
   margin: 0;
   font-weight: 500;
 }
+
+.divRenderTodo {
+  padding: 10px;
+  width: 90%;
+}
   
   .filterAll,
   .filterNewCategory {
+    flex-shrink: 0; /* Garante que os botões não encolham */
     padding: 8px 12px;
     border: 1px solid #7DBDEB;
-    cursor: pointer;
     border-radius: 4px;
+    background-color: #fff;
+    white-space: nowrap; /* Impede quebra de texto */
+    cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #000628;
+    transition: background-color 0.3s, color 0.3s;
   }
   
   .filterAll:hover,
@@ -62,12 +78,13 @@
 
   /* Barra de progresso */
   .divSectionBar {
+    width: auto;
     margin-bottom: 20px;
     font-weight: bold;
   }
   
   .divContainerBar {
-    width: 100%;
+    width: 90%;
     height: 20px;
     background-color: #ddd;
     border-radius: 5px;

@@ -1,22 +1,69 @@
+/* Raiz principal */
 #root {
   width: 100%;
   margin: 0 auto;
   padding: 0;
+  box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
 }
 
+
+/* Container principal do App */
 .containerApp {
   display: flex;
+  flex-direction: column; /* Organiza elementos em coluna */
   background-color: #000628;
-  width: max-content;
-  flex-direction: column;
-  /* padding: 30px; */
-  overflow-x: none;
+  width: 100%; /* Adapta à largura do dispositivo */
+  max-width: 1200px; /* Limita a largura máxima */
+  margin: 0 auto; /* Centraliza o container */
+  padding: 15px;
+  overflow-x: hidden; /* Remove rolagem horizontal desnecessária */
   justify-content: center;
   align-items: flex-start;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra para destaque */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-sizing: border-box;
 }
 
+/* Título principal */
 .titleAplication {
   color: #7DBDEB;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
   margin: 0;
+  font-size: 2.5rem;
+  text-align: center; /* Centraliza o título */
+  word-break: break-word; /* Quebra palavras longas em dispositivos pequenos */
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .containerApp {
+    padding: 10px; /* Reduz o padding em telas menores */
+  }
+
+  .titleAplication {
+    font-size: 2rem; /* Reduz o tamanho do título */
+  }
+}
+
+@media (max-width: 768px) {
+  .containerApp {
+    padding: 8px;
+  }
+
+  .titleAplication {
+    font-size: 1.8rem;
+    padding: 10px; /* Ajusta o espaçamento do título */
+  }
+}
+
+@media (max-width: 480px) {
+  .containerApp {
+    padding: 5px;
+  }
+
+  .titleAplication {
+    font-size: 1.5rem; /* Reduz ainda mais o tamanho do título */
+    padding: 8px;
+  }
+}
+ 
