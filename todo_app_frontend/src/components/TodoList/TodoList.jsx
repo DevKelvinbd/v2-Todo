@@ -238,7 +238,7 @@ function TodoList({
         />
       )}
 
-      {showConfetti && <Confetti />}
+      {showConfetti && <Confetti style={{width: "100%"}} />}
 
       {viewedTodo && (
         <div className={styles.detailsOverlay}>
