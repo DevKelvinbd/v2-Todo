@@ -305,7 +305,7 @@
 /* concluídos */
 
 .completeTodo {
-  color: #9e9e9e;
+  color: #00ff0d;
 }
 
 .inputCheckboxCheck {
@@ -324,8 +324,8 @@
 }
 
 .inputCheckboxCheck:checked {
-  background-color: #7DBDEB; /* Cor de fundo quando clicada */
-  border-color: #0056A1; /* Cor da borda quando clicada */
+  background-color: #009d08; /* Cor de fundo quando clicada */
+  border-color: #004a04; /* Cor da borda quando clicada */
 }
 
 .inputCheckboxCheck:checked::after {
