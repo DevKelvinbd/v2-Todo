@@ -50,7 +50,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 
 ### 1. Clonar o Repositório:
 ```bash
-$ git clone https://github.com/seu-usuario/seu-repositorio.git
+$ git clone https://github.com/DevKelvinbd/v2-Todo.git
 $ cd seu-repositorio
 ```
 
