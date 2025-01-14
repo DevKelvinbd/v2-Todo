@@ -19,7 +19,7 @@
   overflow-x: hidden; /* Remove rolagem horizontal desnecessária */
   justify-content: center;
   align-items: flex-start;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra para destaque */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); Adiciona uma sombra para destaque */
   border-radius: 8px; /* Bordas arredondadas */
   box-sizing: border-box;
 }
