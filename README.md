@@ -36,6 +36,21 @@ Este projeto foi desenvolvido como parte de um **case técnico** solicitado pela
 
 ---
 
+## Motivos das Tecnologias Utilizadas e Dificuldades 🌐
+
+### React.js:
+Já possuía familiaridade com a tecnologia, pois há mais de 7 meses estudo e trabalho em projetos freelancers utilizando React. Apesar disso, continuo em constante aprendizado e aperfeiçoamento.
+
+### Ruby on Rails:
+Antes deste projeto, não tinha experiência prévia com Ruby ou Rails. Também não possuía tanta expertise em aplicações fullstack. Contudo, aceitei o desafio com entusiasmo e me dediquei a aprender a tecnologia do zero. Sempre adotei a premissa de que não tenho uma "linguagem de estimação" e estou disposto a aprender o que for necessário para resolver problemas de forma lógica e eficiente.
+
+### Dificuldades:
+- Nunca havia desenvolvido uma aplicação fullstack ponta a ponta. Foi um processo intenso, que exigiu muitas horas de dedicação não apenas para codificar, mas para entender profundamente as estruturas e boas práticas.
+- Aprendi a configurar e conectar backend e frontend de maneira eficiente, um aprendizado valioso que levarei para futuros projetos.
+- Enfrentei desafios ao implementar a gameficação, especialmente na lógica de XP e níveis, mas foi incrivelmente recompensador ao ver o sistema funcionando.
+
+---
+
 ## Configuração do Projeto 💻
 
 Siga os passos abaixo para rodar a aplicação em sua máquina local:
@@ -50,7 +65,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 
 ### 1. Clonar o Repositório:
 ```bash
-$ git clone https://github.com/DevKelvinbd/v2-Todo.git
+$ git clone https://github.com/seu-usuario/seu-repositorio.git
 $ cd seu-repositorio
 ```
 
@@ -80,7 +95,7 @@ $ cd seu-repositorio
    ```
 3. Inicie o servidor do React:
    ```bash
-   $ npm run dev
+   $ npm start
    ```
    O frontend estará disponível em [http://localhost:3001](http://localhost:3001).
 
@@ -144,6 +159,6 @@ $ cd seu-repositorio
 ---
 
 ## Autor 👨‍💻
-Desenvolvido por **Kelvin Dias** como parte do processo seletivo para a empresa **V360**.
+Desenvolvido por **[Seu Nome]** como parte do processo seletivo para a empresa **V360**.
 
 Se tiver dúvidas ou sugestões, fique à vontade para entrar em contato!
