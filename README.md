@@ -95,7 +95,7 @@ $ cd seu-repositorio
    ```
 3. Inicie o servidor do React:
    ```bash
-   $ npm start
+   $ npm run dev
    ```
    O frontend estará disponível em [http://localhost:3001](http://localhost:3001).
 
