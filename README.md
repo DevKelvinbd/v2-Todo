@@ -159,6 +159,6 @@ $ cd seu-repositorio
 ---
 
 ## Autor 👨‍💻
-Desenvolvido por **[Seu Nome]** como parte do processo seletivo para a empresa **V360**.
+Desenvolvido por **Kelvin Dias** como parte do processo seletivo para a empresa **V360**.
 
 Se tiver dúvidas ou sugestões, fique à vontade para entrar em contato!
