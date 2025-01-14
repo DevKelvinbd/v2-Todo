@@ -61,7 +61,7 @@ module Api
     end
 
     def todo_params
-      params.require(:todo).permit(:todo_name, :completed, :category_id, :difficulty, :description)
+      params.require(:todo).permit(:id, :todo_name, :completed, :category_id, :difficulty, :description, :created_at, :updated_at)
     end
   end
 end
